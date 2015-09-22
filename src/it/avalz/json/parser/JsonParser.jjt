@@ -1,210 +1,0 @@
-/**
- * JJTree template file created by SF JavaCC plugin 1.5.28+ wizard for JavaCC 1.5.0+
- */options{  static = false;}PARSER_BEGIN(JsonParser)package it.avalz.json.parser;
-
-import it.avalz.json.elements.*;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.HashMap;
-
-public class JsonParser{  public static void main(String args [])  {    System.out.println("Reading from standard input...");    System.out.print("Enter an expression like \"1+(2+3)*var;\" :");    JsonParser parser = new JsonParser(System.in);    try    {      JsonElement n = parser.start();      System.out.println(n.serialize());      System.out.println("Thank you.");    }    catch (Exception e)    {      System.out.println("Oops.");      System.out.println(e.getMessage());    }  }}PARSER_END(JsonParser)SKIP :{  " "| "\t"| "\n"| "\r"| < "//" (~[ "\n", "\r" ])*    (      "\n"    | "\r"    | "\r\n"    ) >| < "/*" (~[ "*" ])* "*"    (      ~[ "/" ] (~[ "*" ])* "*"    )*    "/" >}
-
-TOKEN : /* GRAMMAR ELEMENTS */
-{
-  < LCPAR : "{" >
-| < RCPAR : "}" >
-| < LSPAR : "[" >
-| < RSPAR : "]" >
-| < COLON : ":" >
-| < COMMA : "," >
-}
-TOKEN : /* BOOLEAN VALUE */
-{
-	< BOOLEAN_LITERAL :
-		< TRUE >
-	| < FALSE >
-		>| 	< #TRUE :
-		"true"	
-		>
-| 	< #FALSE:
-		"false"	
- 		>
-}
-
-TOKEN : /* STRING VALUE */
-{
-	< STRING_VALUE :
-		"\"" (~["\""])* "\""
-	|  	"'" (~["\""])* "'"
-	|   < LETTER > ( < LETTER > | < DIGIT > )*
-		>
-| < #LETTER : [ "_", "a"-"z", "A"-"Z" ] >
-| < #DIGIT : [ "0"-"9" ] >
-
-}
-
-TOKEN : /* NUMBER VALUE */
-{
- 	< INTEGER :
-		[ "1"-"9" ] ( < DIGIT > )*
-	>
-| 	< FLOAT :
-		< INTEGER > "." < INTEGER >
-	>
-}
-
-
-/* 
-TOKEN : 
-{
-  < ARRAY :	"["
-		(		   < STRING_VALUE >
-		 | < NUMBER_VALUE >
-		 | < OBJECT >
-		)
-		(
-		  ","
-		 (		     < STRING_VALUE >
-	        | < NUMBER_VALUE >
-		 	| < OBJECT >
-		 )
-		)*
-	"]"
-	>
-}
-
-TOKEN : 
-{
-  < OBJECT :
-	"{"
-		< STRING_VALUE > ":"			< STRING_VALUE >
-			| < NUMBER_VALUE >
-			| < OBJECT >
-			| < ARRAY >
-		(			","
-			(				< STRING_VALUE >
-				| < NUMBER_VALUE >
-				| < OBJECT >
-				| < ARRAY >
-			)
-		)*	"}" 
-  	>
-}
-*/
-JsonElement start() :{ JsonElement element; }{
-  element = parseJsonElement()
-  {
-    return element;  }
-}
-
-JsonElement parseJsonElement() :
-{ JsonElement element; }{
-	element = parseObject()
-	{
-	  return element;	}
-|   element = parseArray()
-	{
-	  return element;
-	}
-|   element = parseString()
-	{
-	  return element;
-	}
-| 	element = parseBoolean()
-	{
-	  return element;
-	}
-|	element = parseInteger()
-	{
-	  return element;
-	}
-| 	element = parseFloat()	{
-	  return element;
-	}
-}
-
-JsonObject parseObject() :
-{
-  JsonObject jsonObj;
-}
-{
-  < LCPAR >jsonObj = parseObjectRecord()< RCPAR >
-  {
-	return jsonObj;
-  }
-}
-
-JsonObject parseObjectRecord() :
-{
-  JsonObject jsonObj = new JsonObject(new HashMap<String,JsonElement>());
-  Token key;
-  JsonElement value;}{
-  key = < STRING_VALUE >< COLON >value = parseJsonElement() [ <COMMA > jsonObj = parseObjectRecord() ]
-  {
-    jsonObj.put(key.image.replaceAll("\"", "").replaceAll("'",""), value);
-    return jsonObj;  }
-}
-
-JsonArray parseArray() :
-{
-  JsonArray jsonArr = new JsonArray();
-  JsonElement element;}
-{
-  < LSPAR >element = parseJsonElement() [jsonArr = parseInnerArray() ] < RSPAR >
-  {
-    jsonArr.add(element);
-    return jsonArr;
-  }}
-
-JsonArray parseInnerArray() :
-{
-  JsonArray jsonArr = new JsonArray();
-  JsonElement element;
-}
-{
-  < COMMA >element = parseJsonElement()[ jsonArr = parseInnerArray() ]
-  {	jsonArr.add(element);
-	return jsonArr;
-  }}
-
-JsonString parseString() :
-{
-  Token t;
-}
-{
-  t = < STRING_VALUE >
-  {
-    return new JsonString(t.image);
-  }
-}
-
-JsonBoolean parseBoolean() :
-{
-  Token t;}
-{
-  t = < BOOLEAN_LITERAL >
-  {
-    return new JsonBoolean(t.image);
-  }
-}
-
-JsonInteger parseInteger() :
-{
-  Token t;
-}
-{
-  t = < INTEGER >
-  {
-    return new JsonInteger(t.image);
-  }
-}
-
-JsonFloat parseFloat() :
-{
-  Token t;
-}
-{
-  t = < FLOAT >
-  {
-    return new JsonFloat(t.image);  }}
