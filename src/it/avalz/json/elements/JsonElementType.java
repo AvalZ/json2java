@@ -1,4 +1,4 @@
-package it.avalz.json;
+package it.avalz.json.elements;
 
 public enum JsonElementType {
 	BOOLEAN,

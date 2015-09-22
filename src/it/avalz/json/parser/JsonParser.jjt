@@ -1,8 +1,8 @@
 /**
  * JJTree template file created by SF JavaCC plugin 1.5.28+ wizard for JavaCC 1.5.0+
- */options{  static = false;}PARSER_BEGIN(JsonParser)package it.avalz;
+ */options{  static = false;}PARSER_BEGIN(JsonParser)package it.avalz.json.parser;
 
-import it.avalz.json.*;
+import it.avalz.json.elements.*;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
