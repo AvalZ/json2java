@@ -4,10 +4,26 @@ import it.avalz.json.elements.JsonArray;
 import it.avalz.json.elements.JsonElement;
 import it.avalz.json.elements.JsonObject;
 
+/**
+ * Serializes the JSON structure in a readable format using indentation.
+ * 
+ * @author avalz
+ *
+ */
 public class PrettySerializer extends OneLineSerializer {
 
 	int depth = 0;
-	static String indent = "  ";
+	String indent = "  ";
+
+	/**
+	 * Modifies the indent character.
+	 * 
+	 * Common values are \t, space or other special characters.
+	 * @param indent
+	 */
+	public void setIndentValue(String indent) {
+		this.indent = indent;
+	}
 
 	public String serialize(JsonObject element) {
 		StringBuilder sb = new StringBuilder();

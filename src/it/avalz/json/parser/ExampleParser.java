@@ -6,7 +6,6 @@ import it.avalz.json.elements.JsonElement;
 import it.avalz.json.elements.serializers.JsonSerializer;
 import it.avalz.json.elements.serializers.OneLineSerializer;
 import it.avalz.json.elements.serializers.PrettySerializer;
-import it.avalz.json.visitors.JsonLeavesVisitor;
 import it.avalz.json.visitors.JsonVisitor;
 import it.avalz.json.visitors.TestJsonVisitor;
 

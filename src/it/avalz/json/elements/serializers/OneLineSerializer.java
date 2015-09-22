@@ -8,6 +8,14 @@ import it.avalz.json.elements.JsonInteger;
 import it.avalz.json.elements.JsonObject;
 import it.avalz.json.elements.JsonString;
 
+/**
+ * A simple one-line serializer.
+ * 
+ * It serializes a JSON structure in one single line.
+ * 
+ * @author avalz
+ *
+ */
 public class OneLineSerializer implements JsonSerializer {
 
 	@Override

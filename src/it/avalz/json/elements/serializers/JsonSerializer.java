@@ -7,6 +7,17 @@ import it.avalz.json.elements.JsonInteger;
 import it.avalz.json.elements.JsonObject;
 import it.avalz.json.elements.JsonString;
 
+/**
+ * Interface for JSON Serializers.
+ * 
+ * Implements a Strategy pattern.
+ *
+ * 
+ * @see JsonElement.serialize()
+ * @see JsonElement.setSerializer(JsonSerializer serializer)
+ * @author avalz
+ *
+ */
 public interface JsonSerializer {
 
 	String serialize(JsonArray element);
