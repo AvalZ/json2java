@@ -37,7 +37,8 @@ public class PrettySerializer extends OneLineSerializer {
 			}
 			sb.append(key).append(": ").append(element.get(key).serialize()).append(",").append('\n');
 		}
-		sb.setLength(sb.length() - 2); // remove ",\n"
+		if (sb.length() > 2) sb.setLength(sb.length() - 2); // remove ",\n" if object not empty
+
 		sb.append('\n');
 
 		this.depth--;
@@ -62,7 +63,7 @@ public class PrettySerializer extends OneLineSerializer {
 			}
 			sb.append(elem.serialize()).append(",").append('\n');
 		}
-		sb.setLength(sb.length() - 2); // remove ",\n"
+		if (sb.length() > 2) sb.setLength(sb.length() - 2); // remove ",\n" if object not empty
 		sb.append('\n');
 
 		this.depth--;

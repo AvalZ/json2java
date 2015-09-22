@@ -126,10 +126,10 @@ JsonElement parseJsonElement() :
 
 JsonObject parseObject() :
 {
-  JsonObject jsonObj;
+  JsonObject jsonObj = new JsonObject(new HashMap<String,JsonElement >());
 }
 {
-  < LCPAR >jsonObj = parseObjectRecord()< RCPAR >
+  < LCPAR >[jsonObj = parseObjectRecord()]< RCPAR >
   {
 	return jsonObj;
   }
@@ -149,11 +149,11 @@ JsonObject parseObjectRecord() :
 JsonArray parseArray() :
 {
   JsonArray jsonArr = new JsonArray();
-  JsonElement element;}
+  JsonElement element = null;}
 {
-  < LSPAR >element = parseJsonElement() [jsonArr = parseInnerArray() ] < RSPAR >
+  < LSPAR >[element = parseJsonElement() [jsonArr = parseInnerArray() ]] < RSPAR >
   {
-    jsonArr.add(element);
+    if (element != null) jsonArr.add(element);
     return jsonArr;
   }}
 
