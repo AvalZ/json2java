@@ -31,7 +31,7 @@ public abstract class JsonElement {
 	 * Serialization technique can be modified by setting a new
 	 * serializer
 	 * 
-	 * @see setSerializer(JsonSerializer serializer)
+	 * @see #setSerializer(JsonSerializer serializer)
 	 * @return A string representing the serialized JSON structure
 	 */
 	public abstract String serialize();

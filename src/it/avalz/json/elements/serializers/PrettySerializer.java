@@ -25,7 +25,6 @@ public class PrettySerializer extends OneLineSerializer {
 
 	/**
 	 * Create a PrettySerializer object and set the indentation value to double space
-	 * @param indent Indentation value
 	 */
 	public PrettySerializer() {
 		this("  ");
@@ -33,7 +32,7 @@ public class PrettySerializer extends OneLineSerializer {
 	/**
 	 * Modifies the indent character.
 	 * 
-	 * Common values are \t, space or other special characters.
+	 * Common values are \\t, space or other special characters.
 	 * @param indent
 	 */
 	public void setIndentValue(String indent) {

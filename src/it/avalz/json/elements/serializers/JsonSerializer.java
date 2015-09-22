@@ -2,6 +2,7 @@ package it.avalz.json.elements.serializers;
 
 import it.avalz.json.elements.JsonArray;
 import it.avalz.json.elements.JsonBoolean;
+import it.avalz.json.elements.JsonElement;
 import it.avalz.json.elements.JsonFloat;
 import it.avalz.json.elements.JsonInteger;
 import it.avalz.json.elements.JsonObject;
@@ -13,8 +14,8 @@ import it.avalz.json.elements.JsonString;
  * Implements a Strategy pattern.
  *
  * 
- * @see JsonElement.serialize()
- * @see JsonElement.setSerializer(JsonSerializer serializer)
+ * @see it.avalz.json.elements.JsonElement#serialize()
+ * @see it.avalz.json.elements.JsonElement#setSerializer(JsonSerializer serializer)
  * @author avalz
  *
  */
