@@ -13,8 +13,23 @@ import it.avalz.json.elements.JsonObject;
 public class PrettySerializer extends OneLineSerializer {
 
 	int depth = 0;
-	String indent = "  ";
+	String indent;
 
+	/**
+	 * Create a PrettySerializer object and choose the indentation value (tab, space, double space, ecc.)
+	 * @param indent Indentation value
+	 */
+	public PrettySerializer(String indent) {
+		this.indent = indent;
+	}
+
+	/**
+	 * Create a PrettySerializer object and set the indentation value to double space
+	 * @param indent Indentation value
+	 */
+	public PrettySerializer() {
+		this("  ");
+	}
 	/**
 	 * Modifies the indent character.
 	 * 
